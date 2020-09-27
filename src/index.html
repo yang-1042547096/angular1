@@ -6,13 +6,45 @@
     <title>webpack angular</title>
 </head>
 <body>
+    <!--一、AngularJS 指令以 ng 作为前缀的 HTML 属性。 -->
+    <!-- 
+        ng-app:定义了 AngularJS 应用程序的作用范围，在网页加载完毕时会自动引导 (自动初始化) 应用程序。也可以通过一个值（比如 ng-app=“myModule”）连接到代码模块
+     -->
     <div ng-app="shop" ng-controller="car">
-        <p>
-            {{name}}
-        </p>
-        <p>
-            {{price}}
-        </p>
+        <!-- ng-bind把应用程序变量绑定到某个标签元素的 innerHTML。 -->
+        <!-- <p ng-bind="name"></p> -->
+        <!-- ng-model 指令把输入域的值绑定到应用程序变量。-->
+        <input type="text" name="" id="" ng-model="name">
+        <p>{{name}}</p>
+        <!-- ng-repeat 指令会重复一个 HTML 元素。 -->
+        <ul>
+            <li ng-repeat="item in arr">
+                {{item}}
+            </li>
+        </ul>
+        
+        <!-- ng-include 指令 可以在 HTML 中包含 HTML 文件。 -->
+        <div ng-include="'footer.html'"></div>
+
+        <!-- ng-show 显示和隐藏 -->
+        <p ng-show="flag">我是可见的。</p>
+
+        <!-- 二、内置节点的属性指令  -->
+        <!-- ng-if $even 奇数 和 $odd 偶数  -->
+        <p ng-if="name=='apple'">真的啊</p>
+        <p ng-if="name!='apple'">假的啊</p>
+        <li ng-repeat="item in arr">
+            <span ng-if="$even" style="color:yellow">{{item}}</span>
+            <span ng-if="$odd" style="color:green">{{item}}</span>
+        </li>
+        <!-- 添加事件  -->
+        <button ng-click="eat()">你中午想吃什么</button>
+        <button ng-mouseover="eat()">你中午想吃什么</button> 
+        <!-- 添加样式 -->
+        <div ng-style="s">
+            style
+        </div>
+        <img src="" ng-src="{{u}}" alt="">
     </div>
 </body>
 </html>

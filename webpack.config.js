@@ -2,7 +2,8 @@ const path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -21,15 +22,20 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
-                  loader: 'babel-loader',
-                  options: {
-                    presets: ['@babel/preset-env']
-                  }
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
                 }
-              }
+            }
         ]
     },
     plugins: [
+        new HtmlWebpackPlugin({
+            filename: 'footer.html',
+            template: './src/footer.html',
+            minify: true
+        }),
         new HtmlWebpackPlugin({  // Also generate a test.html
             filename: 'index.html',
             template: './src/index.html',
@@ -37,6 +43,13 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: 'index.css'
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: './src/static', to: 'static',
+                }
+            ]
         }),
         new CleanWebpackPlugin()
     ],
@@ -48,8 +61,8 @@ module.exports = {
     },
     devServer: {
         contentBase: __dirname + "dist",
-        port:9999,
-        open:true
-	}
+        port: 9999,
+        open: true
+    }
 
 };
